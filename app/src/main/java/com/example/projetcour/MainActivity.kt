@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         loadSharedPrefs()
+        initDatabase()
+        initObservers()
         var condition =findViewById<CheckBox>(R.id.checkBox)
         if (DataManager.connexion==0){
             var activity=findViewById<Button>(R.id.button)
@@ -66,11 +68,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.texteCoach).setText("Te voila de retour")
             condition.isVisible = false
             condition.isChecked = true
-
-
         }
-
-
     }
     private fun enregistrerImage(){
          val number= listOf(0,1,2)
@@ -97,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         DataManager.avatar = sharedPref.getInt("avatar", 0)
     }
     //bd
+
     val notesChanges: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
@@ -113,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         notesChanges.observe(
             this
         ) {
-            //findViewById<Button>(R.id.bouton_database).text = it
+            findViewById<Button>(R.id.bouton_database).text = it
         }
     }
 
