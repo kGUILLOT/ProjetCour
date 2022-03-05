@@ -1,9 +1,9 @@
-package com.example.myapplication.database
+package com.example.projetcour.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.myapplication.database.car.Notes
-import com.example.myapplication.database.car.NotesDao
+import com.example.projetcour.database.notes.Notes
+import com.example.projetcour.database.notes.NotesDao
 
 
 @Database(entities = [Notes::class], version = 1)

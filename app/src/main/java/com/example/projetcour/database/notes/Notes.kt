@@ -1,4 +1,4 @@
-package com.example.myapplication.database.car
+package com.example.projetcour.database.notes
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
