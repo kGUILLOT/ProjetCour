@@ -7,22 +7,34 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/model"
-        android:hint="Votre Modele"
+        android:id="@+id/titre"
+        android:hint="Un titre a afficher"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/couleur"
+        app:layout_constraintBottom_toTopOf="@id/contenu"
 
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/couleur"
-        android:hint="Votre Couleur"
+        android:id="@+id/contenu"
+        android:hint="Que devez-vous vous rappelez?"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/model"
+        app:layout_constraintTop_toBottomOf="@id/titre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/categorie"
+
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/categorie"
+        android:hint="Une categorie?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bouton_database"
 
@@ -35,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/couleur"
+        app:layout_constraintTop_toBottomOf="@id/categorie"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

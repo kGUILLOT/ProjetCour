@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
  * également le nom des colonnes avec @ColumnInfo(name = "first_name")
  */
 @Entity
-data class Notes(val titre: String, val contenu: String){
+data class Notes(val titre: String, val contenu: String,val categorie : String? =null){
     @PrimaryKey(autoGenerate = true)
     var id = 0
 }

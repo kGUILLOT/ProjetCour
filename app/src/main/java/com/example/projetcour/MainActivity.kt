@@ -22,23 +22,23 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initDatabase()
 
     }
 
     override fun onStart() {
         super.onStart()
         loadSharedPrefs()
-        initDatabase()
-        initObservers()
+
         var condition =findViewById<CheckBox>(R.id.checkBox)
-        if (DataManager.connexion==0){
+        if (DataManager.connexion==0){//première connexion
             var activity=findViewById<Button>(R.id.button)
             activity.setOnClickListener {
-                if (findViewById<CheckBox>(R.id.checkBox).isChecked) {
+                if (findViewById<CheckBox>(R.id.checkBox).isChecked) {//si les conditions sont cochés
                     var intent = Intent(this, AgendaActivity::class.java)
 
                     enregistrerConnexion()
-                    enregistrerImage()
+                    enregistrerImage()//stockage d'une valeur aléatoire pour l'image
                     Log.d("Suivi","mon img est "+DataManager.avatar)
                     Log.d("Suivi","ma co est "+DataManager.connexion)
                     startActivity(intent)
@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
                         .show()
                 }
             }
-        }else{
+        }else{// seconde ou plus connexion
+            //afichage de l'image a l'utilisateur
             if (DataManager.avatar==0) {
                 findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.man)
             }
@@ -58,11 +59,11 @@ class MainActivity : AppCompatActivity() {
             if (DataManager.avatar==2) {
                 findViewById<ImageView>(R.id.imageView).setImageResource(R.drawable.woman)
             }
-            Log.d("Suivi","mon img est "+DataManager.avatar)
-            Log.d("Suivi","ma co est "+DataManager.connexion)
+
+
             var activity=findViewById<Button>(R.id.button)
             activity.setOnClickListener{
-                var intent = Intent(this, AgendaActivity::class.java)
+                var intent = Intent(this, PrincipalActivity::class.java)
                 startActivity(intent)
             }
             findViewById<TextView>(R.id.texteCoach).setText("Te voila de retour")
@@ -70,6 +71,16 @@ class MainActivity : AppCompatActivity() {
             condition.isChecked = true
         }
     }
+
+    private fun initDatabase() {
+        CoroutineScope(Dispatchers.IO).launch {
+            DataManager.db = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java, DATABASE_NAME
+            ).build()
+        }
+    }
+
     private fun enregistrerImage(){
          val number= listOf(0,1,2)
         val image=number.shuffled().last()
@@ -94,47 +105,6 @@ class MainActivity : AppCompatActivity() {
         DataManager.connexion = sharedPref.getInt("connexion", 0)
         DataManager.avatar = sharedPref.getInt("avatar", 0)
     }
-    //bd
-
-    val notesChanges: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-    private fun recupererNotes() {
-        CoroutineScope(Dispatchers.IO).launch {
-            DataManager.db.noteDao().getAll().forEach {
-                Log.d("Suivi", it.titre + " a une couleur" + it.contenu)
-                notesChanges.postValue("titre " + it.titre)
-            }
-        }
-    }
-
-    private fun initObservers() {
-        notesChanges.observe(
-            this
-        ) {
-            findViewById<Button>(R.id.bouton_database).text = it
-        }
-    }
-
-    private fun initDatabase() {
-        CoroutineScope(Dispatchers.IO).launch {
-            DataManager.db = Room.databaseBuilder(
-                applicationContext,
-                AppDatabase::class.java, DATABASE_NAME
-            ).build()
-        }
-    }
 
 
-    private fun saveNewUser() {
-        CoroutineScope(Dispatchers.IO).launch {
-            DataManager.db.noteDao().insertAll(
-                Notes(
-                    findViewById<EditText>(R.id.model).text.toString(),
-
-                    findViewById<EditText>(R.id.couleur).getText().toString()
-                )
-            )
-        }
-    }
 }
