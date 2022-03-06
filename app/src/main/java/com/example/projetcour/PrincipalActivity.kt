@@ -44,7 +44,7 @@ class PrincipalActivity : AppCompatActivity() {
         activity.setOnClickListener {
             var intent=Intent(this,NewNoteActivity::class.java)
             startActivity(intent)
-            Log.d("Suivi","le mood est "+DataManager.mood)
+
         }
         var activity2=findViewById<Button>(R.id.bouton_supprimer)
         activity2.setOnClickListener {

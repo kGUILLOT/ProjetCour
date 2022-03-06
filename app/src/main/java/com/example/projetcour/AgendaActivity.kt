@@ -13,6 +13,13 @@ class AgendaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agenda)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadSharedPrefs()
+
         findViewById<ImageButton>(R.id.postit).setOnClickListener {
             enregistrerMood("Memo")
             affichageEnregistrement("Memo")
@@ -35,31 +42,30 @@ class AgendaActivity : AppCompatActivity() {
             redirection()
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        loadSharedPrefs()
-    }
     private fun redirection(){
         var intent = Intent(this, PrincipalActivity::class.java)
         startActivity(intent)
     }
     private fun affichageEnregistrement(mood:String){
-        Toast.makeText(this, "Votre mood est "+mood, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Votre mood est "+DataManager.mood, Toast.LENGTH_SHORT).show()
     }
     private fun enregistrerMood(mood: String) {
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putString("mood", mood)
+            Log.d("Suivi","mood enregistré")
             apply()
         }
     }
 
     private fun loadSharedPrefs(){
         val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
-        DataManager.connexion = sharedPref.getInt("connexion", 0)
-        DataManager.avatar = sharedPref.getInt("avatar", 0)
-        DataManager.mood=sharedPref.getString("mood","")
+        DataManager.mood = sharedPref.getString("mood", null)
     }
+
+
+    }
+
+
 
 }
