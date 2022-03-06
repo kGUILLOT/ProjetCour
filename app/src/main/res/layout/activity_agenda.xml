@@ -5,45 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AgendaActivity">
-
+    <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/guideh"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.55"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidev"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50"/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dites moi votre Mood"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="78dp" />
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+       />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="147dp"
-        android:layout_height="116dp"
-        app:srcCompat="@drawable/category_calendar"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="426dp" />
+    <ImageButton
+        android:id="@+id/bouton_calendrier"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="128dp"
-        android:layout_height="163dp"
-        app:srcCompat="@drawable/category_love"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="338dp" />
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toTopOf="@id/guideh"
+        app:layout_constraintStart_toStartOf="@id/guidev"
+        app:layout_constraintEnd_toEndOf="parent"
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="151dp"
-        android:layout_height="128dp"
+        android:src="@drawable/category_calendar"
+        android:scaleType="fitCenter"
+
+        android:background="@color/purple_500"/>
+
+    <ImageButton
+        android:id="@+id/bouton_amour"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+
+        app:layout_constraintTop_toTopOf="@id/guideh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidev"
+        android:background="@color/purple_500"
+
+        android:scaleType="fitCenter"
+        android:src="@drawable/category_love"
+        tools:layout_editor_absoluteX="28dp" />
+
+    <ImageButton
+        android:id="@+id/bouton_pro"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+
+        android:scaleType="fitCenter"
+
+        app:layout_constraintEnd_toEndOf="@id/guidev"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideh"
+        app:layout_constraintStart_toStartOf="parent"
+
         app:srcCompat="@drawable/category_pro"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="166dp" />
+        android:background="@color/purple_500"/>
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="160dp"
-        android:layout_height="124dp"
-        app:srcCompat="@drawable/category_postit"
-        tools:layout_editor_absoluteX="216dp"
-        tools:layout_editor_absoluteY="214dp" />
+    <ImageButton
+        android:id="@+id/postit"
+        android:layout_width="150dp"
+        android:scaleType="fitCenter"
+        android:background="@color/purple_500"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="@id/guideh"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidev"
+        app:srcCompat="@drawable/category_postit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

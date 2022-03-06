@@ -75,17 +75,7 @@ class NewNoteActivity :AppCompatActivity() {
             )
         }
     }
-    private fun deleteNote(titre:String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            DataManager.db.noteDao().delete(
-                Notes(
-                    findViewById<EditText>(R.id.titre).text.toString(),
-                    findViewById<EditText>(R.id.contenu).getText().toString(),
-                    findViewById<EditText>(R.id.categorie).getText().toString()
-                )
-            )
-        }
-    }
+
 
 
 }

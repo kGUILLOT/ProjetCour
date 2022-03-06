@@ -36,11 +36,8 @@ class MainActivity : AppCompatActivity() {
             activity.setOnClickListener {
                 if (findViewById<CheckBox>(R.id.checkBox).isChecked) {//si les conditions sont cochés
                     var intent = Intent(this, AgendaActivity::class.java)
-
                     enregistrerConnexion()
                     enregistrerImage()//stockage d'une valeur aléatoire pour l'image
-                    Log.d("Suivi","mon img est "+DataManager.avatar)
-                    Log.d("Suivi","ma co est "+DataManager.connexion)
                     startActivity(intent)
 
                 } else {
@@ -84,7 +81,6 @@ class MainActivity : AppCompatActivity() {
     private fun enregistrerImage(){
          val number= listOf(0,1,2)
         val image=number.shuffled().last()
-        Log.d("Suivi","L'imagen genere est "+image)
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putInt("avatar", image)

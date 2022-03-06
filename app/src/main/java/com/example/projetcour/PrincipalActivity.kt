@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListAdapter
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -47,7 +44,14 @@ class PrincipalActivity : AppCompatActivity() {
         activity.setOnClickListener {
             var intent=Intent(this,NewNoteActivity::class.java)
             startActivity(intent)
+            Log.d("Suivi","le mood est "+DataManager.mood)
         }
+        var activity2=findViewById<Button>(R.id.bouton_supprimer)
+        activity2.setOnClickListener {
+            var intent=Intent(this,DeleteNoteActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     //bd
@@ -56,30 +60,18 @@ class PrincipalActivity : AppCompatActivity() {
     }
 
 
-    private fun initObservers() {
-        notesChanges.observe(
-            this
-        ) {
-            findViewById<Button>(R.id.bouton_database).text = it.toString()
-            listeNotes.clear()
-            listeNotes.addAll(notesChanges.value!!)
-        }
-    }
-
-
 
     private fun recupererNotes() {
     listeNotes.clear()
         CoroutineScope(Dispatchers.IO).launch {
             DataManager.db.noteDao().getAll().forEach {
-
                 Log.d("Suivi", "le titre est " +it.titre + " a le message +" + it.contenu+ " et a une cat "+it.categorie)
                 listeNotes.add(it)
-
             }
             notesChanges.postValue(listeNotes)
         }
     }
+
 
 
 
@@ -94,17 +86,7 @@ class PrincipalActivity : AppCompatActivity() {
             )
         }
     }
-    private fun deleteNote(notes: Notes) {
-        CoroutineScope(Dispatchers.IO).launch {
-            DataManager.db.noteDao().delete(
-                Notes(
-                    findViewById<EditText>(R.id.titre).text.toString(),
-                    findViewById<EditText>(R.id.contenu).text.toString(),
-                    findViewById<EditText>(R.id.categorie).text.toString()
-                )
-            )
-        }
-    }
+
 }
 
 class CustomAdapter(private val dataSet: List<Notes>) :
